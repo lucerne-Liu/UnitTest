@@ -1,10 +1,42 @@
 package tw.core;
 
+import org.junit.Before;
+import org.junit.Test;
+import tw.core.exception.OutOfRangeAnswerException;
+import tw.core.generator.AnswerGenerator;
+import tw.core.generator.RandomIntGenerator;
+import tw.core.model.GuessResult;
+
+import java.util.Arrays;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 /**
  * 在GameTest文件中完成Game中对应的单元测试
  */
 
 
 public class GameTest {
+    private Game game;
+    private AnswerGenerator answerGenerator;
+    private Answer inputAnswer;
 
+    @Before
+    public final void before() throws OutOfRangeAnswerException {
+        Answer actualAnswer = new Answer();
+        actualAnswer.setNumList(Arrays.asList("1","2","3","4"));
+        answerGenerator = mock(AnswerGenerator.class);
+        when(answerGenerator.generate()).thenReturn(actualAnswer);
+        game = new Game(answerGenerator);
+        inputAnswer = new Answer();
+    }
+
+    @Test
+    public void should_guess_result_be_0A0B_when_inputNumbers_all_wrong() {
+        inputAnswer.setNumList(Arrays.asList("5","6","7","8"));
+        GuessResult guessResult = game.guess(inputAnswer);
+        assertEquals("0A0B", guessResult.getResult());
+        assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
+    }
 }
