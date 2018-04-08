@@ -79,4 +79,13 @@ public class GameTest {
         }
         assertEquals("continue", game.checkStatus());
     }
+
+    @Test
+    public void should_checkStatus_be_FAIL_when_guess_is_not_correct_and_guessTimes_equals_6() {
+        for (int i = 0; i < 6; i++) {
+            inputAnswer.setNumList(Arrays.asList("1","2","5","3"));
+            game.guess(inputAnswer);
+        }
+        assertEquals("fail", game.checkStatus());
+    }
 }
