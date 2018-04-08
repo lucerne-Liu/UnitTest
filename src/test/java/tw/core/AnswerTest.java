@@ -69,4 +69,11 @@ public class AnswerTest {
         answer.setNumList(Arrays.asList("4","3","2","1"));
         assertArrayEquals(result, rightAnswer.check(answer).getValue());
     }
+
+    @Test
+    public void should_check_return_record_in_1_and_2_when_input_3_right_numbers_but_2_in_wrong_positions() {
+        int[] result = new int[]{1,2};
+        answer.setNumList(Arrays.asList("1","3","2","5"));
+        assertArrayEquals(result, rightAnswer.check(answer).getValue());
+    }
 }
