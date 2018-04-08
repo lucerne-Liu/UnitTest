@@ -72,6 +72,17 @@ public class GameTest {
     }
 
     @Test
+    public void should_checkStatus_be_SUCCESS_when_guess_is_correct_at_6th_time() {
+        for (int i = 0; i < 5; i++) {
+            inputAnswer.setNumList(Arrays.asList("1","2","5","3"));
+            game.guess(inputAnswer);
+        }
+        inputAnswer.setNumList(Arrays.asList("1","2","3","4"));
+        game.guess(inputAnswer);
+        assertEquals("success", game.checkStatus());
+    }
+
+    @Test
     public void should_checkStatus_be_CONTINUE_when_guess_is_not_correct_and_guessTimes_less_than_MAX_TIMES() {
         for (int i = 0; i < 5; i++) {
             inputAnswer.setNumList(Arrays.asList("1","2","5","3"));
