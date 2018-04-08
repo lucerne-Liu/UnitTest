@@ -63,4 +63,11 @@ public class GameTest {
         assertEquals("2A1B", guessResult.getResult());
         assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
     }
+
+    @Test
+    public void should_checkStatus_be_SUCCESS_when_guess_is_correct() {
+        inputAnswer.setNumList(Arrays.asList("1","2","3","4"));
+        game.guess(inputAnswer);
+        assertEquals("success", game.checkStatus());
+    }
 }
