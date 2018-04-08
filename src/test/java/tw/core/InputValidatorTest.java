@@ -25,4 +25,9 @@ public class InputValidatorTest {
     public void should_return_false_when_inputNumber_greater_than_9() {
         assertFalse(inputValidator.validate("10 1 2 3"));
     }
+
+    @Test
+    public void should_return_false_when_input_has_same_numbers() {
+        assertFalse(inputValidator.validate("1 1 2 3"));
+    }
 }
