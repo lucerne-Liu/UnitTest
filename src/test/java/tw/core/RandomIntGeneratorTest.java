@@ -6,6 +6,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import tw.core.generator.RandomIntGenerator;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
@@ -32,5 +35,11 @@ public class RandomIntGeneratorTest {
     public void should_generate_length_equals_numbersOfNeed() {
         String generateNums = randomIntGenerator.generateNums(9, 5);
         assertEquals(5, generateNums.split(" ").length);
+    }
+
+    @Test
+    public void should_each_generate_number_less_than_digitmax() {
+        String generateNums = randomIntGenerator.generateNums(9, 4);
+        assertTrue(Arrays.asList(generateNums.split(" ")).stream().allMatch(item ->  Integer.parseInt(item) < 9));
     }
 }
