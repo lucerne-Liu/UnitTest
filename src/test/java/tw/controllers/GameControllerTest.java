@@ -65,6 +65,22 @@ public class GameControllerTest {
     }
 
     @Test
+    public void should_print_GuessHistory_and_fail_when_guess_3_right_numbers_but_2_in_wrong_positions() throws IOException {
+        answer.setNumList(Arrays.asList("1","3","7","2"));
+        when(inputGuess.input()).thenReturn(answer);
+        gameController.play(inputGuess);
+        assertThat(systemOut().contains(
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "[Guess Numbers: 1 3 7 2, Guess Result: 1A2B]\n" +
+                "Game Status: fail")).isTrue();
+        verify(inputGuess, times(6)).input();
+    }
+
+    @Test
     public void should_print_GuessHistory_and_success_when_guess_is_correct() throws IOException {
         answer.setNumList(Arrays.asList("1","2","3","4"));
         when(inputGuess.input()).thenReturn(answer);
