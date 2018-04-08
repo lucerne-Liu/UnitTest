@@ -42,4 +42,10 @@ public class RandomIntGeneratorTest {
         String generateNums = randomIntGenerator.generateNums(9, 4);
         assertTrue(Arrays.stream(generateNums.split(" ")).allMatch(item ->  Integer.parseInt(item) < 9));
     }
+
+    @Test
+    public void should_each_generate_number_be_different() {
+        String generateNums = randomIntGenerator.generateNums(9, 4);
+        assertEquals(4, Arrays.stream(generateNums.split(" ")).distinct().count());
+    }
 }
