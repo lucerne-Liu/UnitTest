@@ -55,4 +55,12 @@ public class GameTest {
         assertEquals("0A4B", guessResult.getResult());
         assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
     }
+
+    @Test
+    public void should_guess_result_be_2A1B_when_inputNumbers_3_right_numbers_but_1_in_wrong_positions() {
+        inputAnswer.setNumList(Arrays.asList("1","2","5","3"));
+        GuessResult guessResult = game.guess(inputAnswer);
+        assertEquals("2A1B", guessResult.getResult());
+        assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
+    }
 }
