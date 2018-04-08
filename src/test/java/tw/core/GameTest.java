@@ -39,4 +39,12 @@ public class GameTest {
         assertEquals("0A0B", guessResult.getResult());
         assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
     }
+
+    @Test
+    public void should_guess_result_be_4A0B_when_inputNumbers_all_right() {
+        inputAnswer.setNumList(Arrays.asList("1","2","3","4"));
+        GuessResult guessResult = game.guess(inputAnswer);
+        assertEquals("4A0B", guessResult.getResult());
+        assertEquals(inputAnswer.toString(), guessResult.getInputAnswer().toString());
+    }
 }
