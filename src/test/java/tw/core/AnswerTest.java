@@ -16,6 +16,10 @@ public class AnswerTest {
     public ExpectedException exception = ExpectedException.none();
 
     private Answer answer;
+    private Answer rightAnswer = new Answer();
+    {
+        rightAnswer.setNumList(Arrays.asList("1","2","3","4"));
+    }
 
     @Before
     public final void before() {
@@ -39,9 +43,16 @@ public class AnswerTest {
 
     @Test
     public void should_validate_throw_OutOfRangeAnswerException_when_answer_contains_number_greater_than_9() throws OutOfRangeAnswerException {
-        answer.setNumList(Arrays.asList("1", "2", "3","10"));
         exception.expect(OutOfRangeAnswerException.class);
         exception.expectMessage("Answer format is incorrect");
+        answer.setNumList(Arrays.asList("1", "2", "3","10"));
         answer.validate();
+    }
+
+    @Test
+    public void should_check_return_record_in_0_and_0_when_inputAnswer_all_wrong() {
+        int[] result = new int[]{0,0};
+        answer.setNumList(Arrays.asList("5","6","7","8"));
+        assertArrayEquals(result, rightAnswer.check(answer).getValue());
     }
 }
