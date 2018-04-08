@@ -55,4 +55,11 @@ public class AnswerTest {
         answer.setNumList(Arrays.asList("5","6","7","8"));
         assertArrayEquals(result, rightAnswer.check(answer).getValue());
     }
+
+    @Test
+    public void should_check_return_record_in_4_and_0_when_inputAnswer_all_right() {
+        int[] result = new int[]{4,0};
+        answer.setNumList(Arrays.asList("1","2","3","4"));
+        assertArrayEquals(result, rightAnswer.check(answer).getValue());
+    }
 }
