@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 /**
  * 在GameControllerTest文件中完成GameController中对应的单元测试
@@ -61,5 +61,17 @@ public class GameControllerTest {
                 "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
                 "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
                 "Game Status: fail")).isTrue();
+        verify(inputGuess, times(6)).input();
+    }
+
+    @Test
+    public void should_print_GuessHistory_and_success_when_guess_is_correct() throws IOException {
+        answer.setNumList(Arrays.asList("1","2","3","4"));
+        when(inputGuess.input()).thenReturn(answer);
+        gameController.play(inputGuess);
+        assertThat(systemOut().contains(
+                "[Guess Numbers: 1 2 3 4, Guess Result: 4A0B]\n" +
+                "Game Status: success")).isTrue();
+        verify(inputGuess, times(1)).input();
     }
 }
