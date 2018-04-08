@@ -40,6 +40,6 @@ public class RandomIntGeneratorTest {
     @Test
     public void should_each_generate_number_less_than_digitmax() {
         String generateNums = randomIntGenerator.generateNums(9, 4);
-        assertTrue(Arrays.asList(generateNums.split(" ")).stream().allMatch(item ->  Integer.parseInt(item) < 9));
+        assertTrue(Arrays.stream(generateNums.split(" ")).allMatch(item ->  Integer.parseInt(item) < 9));
     }
 }
