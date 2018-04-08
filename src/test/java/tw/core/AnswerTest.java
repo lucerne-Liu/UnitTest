@@ -36,4 +36,12 @@ public class AnswerTest {
         exception.expectMessage("Answer format is incorrect");
         answer.validate();
     }
+
+    @Test
+    public void should_validate_throw_OutOfRangeAnswerException_when_answer_contains_number_greater_than_9() throws OutOfRangeAnswerException {
+        answer.setNumList(Arrays.asList("1", "2", "3","10"));
+        exception.expect(OutOfRangeAnswerException.class);
+        exception.expectMessage("Answer format is incorrect");
+        answer.validate();
+    }
 }
