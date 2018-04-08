@@ -20,4 +20,9 @@ public class InputValidatorTest {
     public void should_return_false_when_input_less_than_4_numbers() {
         assertFalse(inputValidator.validate("1 2 3"));
     }
+
+    @Test
+    public void should_return_false_when_inputNumber_greater_than_9() {
+        assertFalse(inputValidator.validate("10 1 2 3"));
+    }
 }
