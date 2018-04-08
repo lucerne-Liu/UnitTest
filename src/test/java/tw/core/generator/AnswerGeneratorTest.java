@@ -32,5 +32,13 @@ public class AnswerGeneratorTest {
         exception.expectMessage("Answer format is incorrect");
         answerGenerator.generate();
     }
+
+    @Test
+    public void should_throw_OutOfRangeAnswerException_when_generateNums_contains_number_greater_than_9() throws OutOfRangeAnswerException {
+        when(randomIntGenerator.generateNums(9, 4)).thenReturn("1 2 3 10");
+        exception.expect(OutOfRangeAnswerException.class);
+        exception.expectMessage("Answer format is incorrect");
+        answerGenerator.generate();
+    }
 }
 
