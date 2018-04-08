@@ -25,6 +25,7 @@ public class GameControllerTest {
     private GameController gameController;
     private AnswerGenerator answerGenerator;
     private InputCommand inputGuess;
+    private Answer answer;
     private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
@@ -36,6 +37,7 @@ public class GameControllerTest {
         when(answerGenerator.generate()).thenReturn(actualAnswer);
         gameController = new GameController(new Game(answerGenerator),new GameView());
         System.setOut(new PrintStream(outContent));
+        answer = new Answer();
     }
 
     private String systemOut() { return outContent.toString(); }
@@ -44,5 +46,20 @@ public class GameControllerTest {
     public void should_print_beginMsg_when_beginGame() throws IOException {
         gameController.beginGame();
         assertThat(systemOut().startsWith("------Guess Number Game, You have 6 chances to guess!  ------")).isTrue();
+    }
+
+    @Test
+    public void should_print_GuessHistory_and_fail_when_guess_is_all_wrong() throws IOException {
+        answer.setNumList(Arrays.asList("5","6","7","8"));
+        when(inputGuess.input()).thenReturn(answer);
+        gameController.play(inputGuess);
+        assertThat(systemOut().contains(
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                "Game Status: fail")).isTrue();
     }
 }
