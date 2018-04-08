@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 public class RandomIntGeneratorTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
     private RandomIntGenerator randomIntGenerator;
 
     @Before
