@@ -25,6 +25,7 @@ public class GameControllerTest {
     private AnswerGenerator answerGenerator;
     private InputCommand inputGuess;
     private Answer answer;
+    private Answer answer2;
     private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
@@ -37,6 +38,7 @@ public class GameControllerTest {
         gameController = new GameController(new Game(answerGenerator),new GameView());
         System.setOut(new PrintStream(outContent));
         answer = new Answer();
+        answer2= new Answer();
     }
 
     private String systemOut() { return outContent.toString(); }
@@ -60,6 +62,35 @@ public class GameControllerTest {
                 "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
                 "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
                 "Game Status: fail")).isTrue();
+        verify(inputGuess, times(6)).input();
+    }
+    @Test
+    public void should_print_GuessHistory_and_success_when_guess_is_right_at_second_time() throws IOException {
+        answer.setNumList(Arrays.asList("5","6","7","8"));
+        answer2.setNumList(Arrays.asList("1","2","3","4"));
+        when(inputGuess.input()).thenReturn(answer).thenReturn(answer2);
+        gameController.play(inputGuess);
+        assertThat(systemOut().contains(
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 1 2 3 4, Guess Result: 4A0B]\n" +
+                        "Game Status: success")).isTrue();
+        verify(inputGuess, times(2)).input();
+    }
+
+    @Test
+    public void should_print_GuessHistory_and_success_when_guess_is_right_at_last_time() throws IOException {
+        answer.setNumList(Arrays.asList("5","6","7","8"));
+        answer2.setNumList(Arrays.asList("1","2","3","4"));
+        when(inputGuess.input()).thenReturn(answer).thenReturn(answer).thenReturn(answer).thenReturn(answer).thenReturn(answer).thenReturn(answer2);
+        gameController.play(inputGuess);
+        assertThat(systemOut().contains(
+                "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 5 6 7 8, Guess Result: 0A0B]\n" +
+                        "[Guess Numbers: 1 2 3 4, Guess Result: 4A0B]\n" +
+                        "Game Status: success")).isTrue();
         verify(inputGuess, times(6)).input();
     }
 
