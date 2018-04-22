@@ -35,4 +35,9 @@ public class InputValidatorTest {
     public void should_return_true_when_input_in_right_format() {
         assertTrue(inputValidator.validate("1 2 3 4"));
     }
+
+    @Test
+    public void should_return_false_when_input_has_same_numbers_and_greater_than_9() {
+        assertFalse(inputValidator.validate("1 2 4 4 10"));
+    }
 }
