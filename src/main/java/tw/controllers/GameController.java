@@ -26,15 +26,17 @@ public class GameController {
     }
 
     public void play(InputCommand command) throws IOException {
-
         if (game.checkCoutinue()) {
-            GuessResult guessResult = game.guess(command.input());
-            gameView.showGuessResult(guessResult);
-            gameView.showGuessHistory(game.guessHistory());
+            showGuessHistoryAndResult(command);
             play(command);
         } else {
             gameView.showGameStatus(game.checkStatus());
         }
+    }
+
+    private void showGuessHistoryAndResult(InputCommand command) throws IOException {
+        gameView.showGuessResult(game.guess(command.input()));
+        gameView.showGuessHistory(game.guessHistory());
     }
 
 }
